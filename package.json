@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@open-wa/wa-automate": "^4.66.3",
+    "ffmpeg-static": "^5.1.0",
+    "youtube-sr": "^4.3.4",
+    "ytdl-core": "^4.11.5"
+  }
+}
