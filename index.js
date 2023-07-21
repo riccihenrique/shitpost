@@ -6,7 +6,6 @@ const ytdl = require('ytdl-core');
 const ffmpeg = require('ffmpeg-static');
 const YouTube = require("youtube-sr").default;
 
-const ref = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
 const tracker = {
   start: Date.now(),
   audio: { downloaded: 0, total: Infinity },
@@ -24,16 +23,19 @@ wa.create({
   hostNotificationLang: 'PT_BR',
   logConsole: false,
   popup: false,
-  executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-  qrTimeout: 0, //0 means it will wait forever for you to scan the qr code
+  useChrome: true,
+  executablePath: "/opt/google/chrome/chrome",
+  // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  qrTimeout: 0,
 }).then(client => start(client));
 
 function start(client) {
   client.onMessage(async message => {
-    if (message.body === 'meme') {
+    if (String(message.body).toLowerCase() === 'meme') {
       const videos = await YouTube.search('Memes Existenciais 2.0', { limit: 100 });
       const video = videos[parseInt(Math.random() * videos.length, 10)];
-      if (!fs.existsSync(`${video.id}.mp4`)) {
+
+    if (!fs.existsSync(`${video.id}.mp4`)) {
         await convertVideo(`https://www.youtube.com/watch?v=${video.id}`, video.id)
       }
 
@@ -41,7 +43,6 @@ function start(client) {
     }
   });
 }
-
 
 function convertVideo(ref, data) {
   return new Promise((resolve, reject) => {
