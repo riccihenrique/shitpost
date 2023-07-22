@@ -5,6 +5,7 @@ const readline = require('readline');
 const ytdl = require('ytdl-core');
 const ffmpeg = require('ffmpeg-static');
 const YouTube = require("youtube-sr").default;
+const nodeCron = require('node-cron');
 
 const tracker = {
   start: Date.now(),
@@ -12,6 +13,10 @@ const tracker = {
   video: { downloaded: 0, total: Infinity },
   merged: { frame: 0, speed: '0x', fps: 0 },
 };
+
+const fixos = {
+  'oleoDeMacaco': 'Vh6ptYSv-BM',
+}
 
 wa.create({
   sessionId: "shit_post",
@@ -30,6 +35,15 @@ wa.create({
 }).then(client => start(client));
 
 function start(client) {
+
+  nodeCron.schedule("18 16 * * *", async () => {
+    const groups = await client.getAllGroups();
+
+    groups.forEach((group) => {
+      client.sendFile(group.id, `${video.id}.mp4`, 'meme.mp4', 'meme')
+    })
+  })
+
   client.onMessage(async message => {
     if (String(message.body).toLowerCase() === 'meme') {
       const videos = await YouTube.search('Memes Existenciais 2.0', { limit: 100 });
@@ -39,7 +53,7 @@ function start(client) {
         await convertVideo(`https://www.youtube.com/watch?v=${video.id}`, video.id)
       }
 
-      await client.sendFile(message.from, `${video.id}.mp4`, 'meme.mp4', 'meme')
+      await client.sendFile(message.from, `${fixos.oleoDeMacaco}.mp4`, 'meiaNoite.mp4', '');
     }
   });
 }
