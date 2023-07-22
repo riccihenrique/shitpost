@@ -53,7 +53,7 @@ function start(client) {
     if (!fs.existsSync(`${video.id}.mp4`)) {
         await convertVideo(`https://www.youtube.com/watch?v=${video.id}`, video.id)
       }
-zzs
+
       await client.sendFile(message.from, `${video.id}.mp4`, `${video.id}.mp4`, '');
     }
   });
