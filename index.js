@@ -36,9 +36,9 @@ wa.create({
 
 function start(client) {
 
-  nodeCron.schedule("37 16 * * *", async () => {
+  nodeCron.schedule("22 17 * * *", async () => {
     const groups = await client.getAllGroups();
-    await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
+    // await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
 
     groups.forEach((group) => {
       //client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
