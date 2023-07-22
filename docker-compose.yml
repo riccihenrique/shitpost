@@ -1,6 +1,11 @@
-# syntax=docker/dockerfile:1
-FROM node:16
-COPY package.json package-lock.json ./
-RUN npm i
-COPY . .
-CMD ["node", "index.js"]
+version: '3'
+services:
+  amanda_zap:
+    build: .
+    ports:
+      - "9090:9090"
+    restart: always
+    container_name: amanda_zap
+    volumes:
+      - .:/app
+    working_dir: /app
