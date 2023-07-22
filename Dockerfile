@@ -1,5 +1,6 @@
 FROM node:16-alpine
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV NODE_ENV=production
 
 RUN apk add chromium
 

@@ -29,18 +29,18 @@ wa.create({
   logConsole: false,
   popup: false,
   useChrome: true,
-  executablePath: "/opt/google/chrome/chrome",
-  // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  executablePath: NODE_ENV === 'production' ? '/opt/google/chrome/chrome' : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   qrTimeout: 0,
 }).then(client => start(client));
 
 function start(client) {
   nodeCron.schedule("0 3 * * *", async () => {
     const groups = await client.getAllGroups();
-    // await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
+    const videoId = fixos.oleoDeMacaco;
+    await videoDownloader(videoId);
 
     groups.forEach((group) => {
-      client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
+      client.sendFile(group.id, `${videoId}.mp4`, `${videoId}.mp4`, '');
     })
   })
 
@@ -48,14 +48,19 @@ function start(client) {
     if (message.body.toLowerCase() === 'meme' || message.body.includes('@5518991648279')) {
       const videos = await YouTube.search('Memes Existenciais 2.0', { limit: 100 });
       const video = videos[parseInt(Math.random() * videos.length, 10)];
+      const videoId = video.id;
 
-    if (!fs.existsSync(`${video.id}.mp4`)) {
-        await convertVideo(`https://www.youtube.com/watch?v=${video.id}`, video.id)
-      }
+      await videoDownloader(videoId);
 
-      await client.sendFile(message.from, `${video.id}.mp4`, `${video.id}.mp4`, '');
+      await client.sendFile(message.from, `${videoId}.mp4`, `${videoId}.mp4`, '');
     }
   });
+}
+
+async function videoDownloader(videoId) {
+  if (!fs.existsSync(`${videoId}.mp4`)) {
+    await convertVideo(`https://www.youtube.com/watch?v=${videoId}`, videoId);
+  }
 }
 
 function convertVideo(ref, data) {
