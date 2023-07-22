@@ -35,7 +35,6 @@ wa.create({
 }).then(client => start(client));
 
 function start(client) {
-
   nodeCron.schedule("0 3 * * *", async () => {
     const groups = await client.getAllGroups();
     // await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
@@ -46,11 +45,10 @@ function start(client) {
   })
 
   client.onMessage(async message => {
-    if (String(message.body).toLowerCase() === 'meme') {
+    if (message.body.toLowerCase() === 'meme' || message.body.includes('@5518991648279')) {
       const videos = await YouTube.search('Memes Existenciais 2.0', { limit: 100 });
       const video = videos[parseInt(Math.random() * videos.length, 10)];
 
-      console.log(message.from)
     if (!fs.existsSync(`${video.id}.mp4`)) {
         await convertVideo(`https://www.youtube.com/watch?v=${video.id}`, video.id)
       }
