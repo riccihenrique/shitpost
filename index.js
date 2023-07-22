@@ -42,7 +42,6 @@ function start(client) {
 
     groups.forEach((group) => {
       client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
-
     })
   })
 
