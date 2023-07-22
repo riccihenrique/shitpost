@@ -36,14 +36,12 @@ wa.create({
 
 function start(client) {
 
-  nodeCron.schedule("22 17 * * *", async () => {
+  nodeCron.schedule("0 3 * * *", async () => {
     const groups = await client.getAllGroups();
     // await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
 
     groups.forEach((group) => {
-      //client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
-      console.log(group)
-      client.sendFile('5518988247731@c.us', `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
+      client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
 
     })
   })
