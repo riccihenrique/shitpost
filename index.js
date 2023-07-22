@@ -29,7 +29,7 @@ wa.create({
   logConsole: false,
   popup: false,
   useChrome: true,
-  executablePath: NODE_ENV === 'production' ? '/opt/google/chrome/chrome' : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  executablePath: process.env.NODE_ENV === 'production' ? '/opt/google/chrome/chrome' : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   qrTimeout: 0,
 }).then(client => start(client));
 
