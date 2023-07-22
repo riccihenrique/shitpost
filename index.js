@@ -18,6 +18,11 @@ const fixos = {
   'oleoDeMacaco': 'Vh6ptYSv-BM',
 }
 
+const termosParaBusca = [
+  'Memes Existenciais 2.0',
+  'Denielshit ',
+];
+
 wa.create({
   sessionId: "shit_post",
   multiDevice: true, //required to enable multiDevice support
@@ -46,7 +51,7 @@ function start(client) {
 
   client.onMessage(async message => {
     if (message.body.toLowerCase() === 'meme' || message.body.includes('@5518991648279')) {
-      const videos = await YouTube.search('Memes Existenciais 2.0', { limit: 100 });
+      const videos = await YouTube.search(termosParaBusca[parseInt(Math.random() * termosParaBusca.length)], { limit: 100 });
       const video = videos[parseInt(Math.random() * videos.length, 10)];
       const videoId = video.id;
 
