@@ -41,7 +41,9 @@ function start(client) {
     await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
 
     groups.forEach((group) => {
-      client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
+      //client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
+      client.sendFile('5518988247731@c.us', `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
+
     })
   })
 
