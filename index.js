@@ -36,7 +36,7 @@ wa.create({
 
 function start(client) {
 
-  nodeCron.schedule("30 16 * * *", async () => {
+  nodeCron.schedule("34 16 * * *", async () => {
     const groups = await client.getAllGroups();
     await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
 
