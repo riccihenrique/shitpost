@@ -36,11 +36,12 @@ wa.create({
 
 function start(client) {
 
-  nodeCron.schedule("18 16 * * *", async () => {
+  nodeCron.schedule("16 20 * * *", async () => {
     const groups = await client.getAllGroups();
+    await convertVideo(`https://www.youtube.com/watch?v=${fixos.oleoDeMacaco}`, fixos.oleoDeMacaco)
 
     groups.forEach((group) => {
-      client.sendFile(group.id, `${video.id}.mp4`, 'meme.mp4', 'meme')
+      client.sendFile(group.id, `${fixos.oleoDeMacaco}.mp4`, `${fixos.oleoDeMacaco}.mp4`, '');
     })
   })
 
@@ -52,8 +53,8 @@ function start(client) {
     if (!fs.existsSync(`${video.id}.mp4`)) {
         await convertVideo(`https://www.youtube.com/watch?v=${video.id}`, video.id)
       }
-
-      await client.sendFile(message.from, `${fixos.oleoDeMacaco}.mp4`, 'meiaNoite.mp4', '');
+zzs
+      await client.sendFile(message.from, `${video.id}.mp4`, `${video.id}.mp4`, '');
     }
   });
 }
