@@ -20,7 +20,8 @@ const fixos = {
 
 const termosParaBusca = [
   'Memes Existenciais 2.0',
-  'Denielshit ',
+  'Denielshit',
+  'le menis da hora',
 ];
 
 wa.create({
