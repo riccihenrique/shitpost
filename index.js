@@ -16,6 +16,7 @@ const tracker = {
 
 const fixos = {
   'oleoDeMacaco': 'Vh6ptYSv-BM',
+  '10ePoco': 'HAVv0d75ajQ',
 }
 
 const termosParaBusca = [
@@ -23,6 +24,8 @@ const termosParaBusca = [
   'Denielshit',
   'le menis da hora',
 ];
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 wa.create({
   sessionId: "shit_post",
@@ -35,12 +38,15 @@ wa.create({
   logConsole: false,
   popup: false,
   useChrome: true,
-  executablePath: process.env.NODE_ENV === 'production' ? '/opt/google/chrome/chrome' : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  executablePath: isProduction ? '/opt/google/chrome/chrome' : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   qrTimeout: 0,
 }).then(client => start(client));
 
 function start(client) {
   nodeCron.schedule("0 3 * * *", async () => {
+    if (!isProduction) {
+      return;
+    }
     const groups = await client.getAllGroups();
     const videoId = fixos.oleoDeMacaco;
     await videoDownloader(videoId);
@@ -50,8 +56,42 @@ function start(client) {
     })
   })
 
+  nodeCron.schedule("0 13 * * *", async () => {
+    if (!isProduction) {
+      return;
+    }
+    setTimeout(async () => {
+      const groups = await client.getAllGroups();
+      const videoId = fixos['10ePoco'];
+      await videoDownloader(videoId);
+
+      groups.forEach((group) => {
+        client.sendFile(group.id, `${videoId}.mp4`, `${videoId}.mp4`, '');
+      });
+    }, parseInt(Math.random() * 58) * 1000 * 60);
+  });
+
+  nodeCron.schedule("0 1 * * *", async () => {
+    if (!isProduction) {
+      return;
+    }
+    setTimeout(async () => {
+      const groups = await client.getAllGroups();
+      const videoId = fixos['10ePoco'];
+      await videoDownloader(videoId);
+
+      groups.forEach((group) => {
+        client.sendFile(group.id, `${videoId}.mp4`, `${videoId}.mp4`, '');
+      });
+    }, parseInt(Math.random() * 58) * 1000 * 60);
+  });
+
   client.onMessage(async message => {
     if (message.body.toLowerCase() === 'meme' || message.body.includes('@5518991648279')) {
+      if (!isProduction && message.from !== '') {
+        return;
+      }
+
       const videos = await YouTube.search(termosParaBusca[parseInt(Math.random() * termosParaBusca.length)], { limit: 100 });
       const video = videos[parseInt(Math.random() * videos.length, 10)];
       const videoId = video.id;
