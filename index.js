@@ -17,6 +17,7 @@ const tracker = {
 const fixos = {
   'oleoDeMacaco': 'Vh6ptYSv-BM',
   '10ePoco': 'HAVv0d75ajQ',
+  '6eOnibus': 'fAj6gEyjCIw',
 }
 
 const termosParaBusca = [
@@ -84,6 +85,19 @@ function start(client) {
         client.sendFile(group.id, `${videoId}.mp4`, `${videoId}.mp4`, '');
       });
     }, parseInt(Math.random() * 58) * 1000 * 60);
+  });
+
+  nodeCron.schedule("11 9 * * *", async () => {
+    if (!isProduction) {
+      return;
+    }
+    const groups = await client.getAllGroups();
+    const videoId = fixos['6eOnibus'];
+    await videoDownloader(videoId);
+
+    groups.forEach((group) => {
+      client.sendFile(group.id, `${videoId}.mp4`, `${videoId}.mp4`, '');
+    });
   });
 
   client.onMessage(async message => {
